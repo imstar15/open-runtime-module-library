@@ -387,6 +387,7 @@ pub mod module {
 			dest: MultiLocation,
 			dest_weight: Weight,
 		) -> DispatchResult {
+			log::error!("ORML!!!do_transfer");
 			let location: MultiLocation =
 				T::CurrencyIdConvert::convert(currency_id).ok_or(Error::<T>::NotCrossChainTransferableCurrency)?;
 
@@ -408,6 +409,7 @@ pub mod module {
 			dest: MultiLocation,
 			dest_weight: Weight,
 		) -> DispatchResult {
+			log::error!("ORML!!!do_transfer_with_fee");
 			let location: MultiLocation =
 				T::CurrencyIdConvert::convert(currency_id).ok_or(Error::<T>::NotCrossChainTransferableCurrency)?;
 
@@ -462,6 +464,7 @@ pub mod module {
 			dest: MultiLocation,
 			dest_weight: Weight,
 		) -> DispatchResult {
+			log::error!("ORML!!!do_transfer_multicurrencies");
 			ensure!(
 				currencies.len() <= T::MaxAssetsForTransfer::get(),
 				Error::<T>::TooManyAssetsBeingSent
