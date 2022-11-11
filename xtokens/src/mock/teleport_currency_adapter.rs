@@ -8,6 +8,8 @@ use sp_std::{
 	result,
 };
 
+use frame_support::log;
+
 use orml_xcm_support::{OnDepositFail, UnknownAsset as UnknownAssetT};
 use xcm::latest::{Error as XcmError, MultiAsset, MultiLocation, Result};
 use xcm_executor::{
@@ -109,6 +111,7 @@ impl<
 	}
 
 	fn withdraw_asset(asset: &MultiAsset, location: &MultiLocation) -> result::Result<Assets, XcmError> {
+		log::error("CurrencyIdConversionFailed!!!withdraw_asset");
 		UnknownAsset::withdraw(asset, location).or_else(|_| {
 			let who = AccountIdConvert::convert_ref(location)
 				.map_err(|_| XcmError::from(Error::AccountIdConversionFailed))?;

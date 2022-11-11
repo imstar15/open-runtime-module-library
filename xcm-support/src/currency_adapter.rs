@@ -1,5 +1,7 @@
 use codec::FullCodec;
-use frame_support::traits::Get;
+use frame_support::{ 
+	traits::Get, log,
+};
 use sp_runtime::{
 	traits::{Convert, MaybeSerializeDeserialize, SaturatedConversion},
 	DispatchError,
@@ -161,6 +163,7 @@ impl<
 	}
 
 	fn withdraw_asset(asset: &MultiAsset, location: &MultiLocation) -> result::Result<Assets, XcmError> {
+		log::error!("CurrencyIdConversionFailed!!!withdraw_asset");
 		UnknownAsset::withdraw(asset, location).or_else(|_| {
 			let who = AccountIdConvert::convert_ref(location)
 				.map_err(|_| XcmError::from(Error::AccountIdConversionFailed))?;
@@ -180,6 +183,7 @@ impl<
 		from: &MultiLocation,
 		to: &MultiLocation,
 	) -> result::Result<Assets, XcmError> {
+		log::error!("CurrencyIdConversionFailed!!!transfer_asset");
 		let from_account =
 			AccountIdConvert::convert_ref(from).map_err(|_| XcmError::from(Error::AccountIdConversionFailed))?;
 		let to_account =
