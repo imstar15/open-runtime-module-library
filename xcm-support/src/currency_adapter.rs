@@ -163,7 +163,7 @@ impl<
 	}
 
 	fn withdraw_asset(asset: &MultiAsset, location: &MultiLocation) -> result::Result<Assets, XcmError> {
-		log::error!("CurrencyIdConversionFailed!!!withdraw_asset");
+		log::error!("CurrencyIdConversionFailed!!!currency_adapter::withdraw_asset");
 		UnknownAsset::withdraw(asset, location).or_else(|_| {
 			let who = AccountIdConvert::convert_ref(location)
 				.map_err(|_| XcmError::from(Error::AccountIdConversionFailed))?;
