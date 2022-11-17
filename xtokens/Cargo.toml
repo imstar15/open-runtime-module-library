@@ -20,12 +20,12 @@ frame-support = { git = "https://github.com/paritytech/substrate", default-featu
 frame-system = { git = "https://github.com/paritytech/substrate", default-features = false , branch = "polkadot-v0.9.28" }
 
 # cumulus
-cumulus-primitives-core = { git = "https://github.com/paritytech/cumulus", default-features = false , branch = "polkadot-v0.9.28" }
+cumulus-primitives-core = { git = "https://github.com/paritytech/cumulus", default-features = false , branch = "debug3" }
 
 # polkadot
-pallet-xcm = { git = "https://github.com/paritytech/polkadot", default-features = false , branch = "release-v0.9.28" }
-xcm = { git = "https://github.com/paritytech/polkadot", default-features = false , branch = "release-v0.9.28" }
-xcm-executor = { git = "https://github.com/paritytech/polkadot", default-features = false , branch = "release-v0.9.28" }
+pallet-xcm = { git = "https://github.com/paritytech/polkadot", default-features = false , branch = "debug3" }
+xcm = { git = "https://github.com/paritytech/polkadot", default-features = false , branch = "debug3" }
+xcm-executor = { git = "https://github.com/paritytech/polkadot", default-features = false , branch = "debug3" }
 
 # orml
 orml-xcm-support = { path = "../xcm-support", default-features = false }
@@ -37,17 +37,17 @@ sp-core = { git = "https://github.com/paritytech/substrate", branch = "polkadot-
 pallet-balances = { git = "https://github.com/paritytech/substrate", branch = "polkadot-v0.9.28" }
 
 # cumulus
-cumulus-primitives-core = { git = "https://github.com/paritytech/cumulus", branch = "polkadot-v0.9.28" }
-cumulus-pallet-dmp-queue = { git = "https://github.com/paritytech/cumulus", branch = "polkadot-v0.9.28" }
-cumulus-pallet-xcmp-queue = { git = "https://github.com/paritytech/cumulus", branch = "polkadot-v0.9.28" }
-cumulus-pallet-xcm = { git = "https://github.com/paritytech/cumulus", branch = "polkadot-v0.9.28" }
-parachain-info = { git = "https://github.com/paritytech/cumulus", branch = "polkadot-v0.9.28" }
+cumulus-primitives-core = { git = "https://github.com/paritytech/cumulus", branch = "debug3" }
+cumulus-pallet-dmp-queue = { git = "https://github.com/paritytech/cumulus", branch = "debug3" }
+cumulus-pallet-xcmp-queue = { git = "https://github.com/paritytech/cumulus", branch = "debug3" }
+cumulus-pallet-xcm = { git = "https://github.com/paritytech/cumulus", branch = "debug3" }
+parachain-info = { git = "https://github.com/paritytech/cumulus", branch = "debug3" }
 
 # polkadot
-polkadot-parachain = { git = "https://github.com/paritytech/polkadot", branch = "release-v0.9.28" }
-polkadot-runtime-parachains = { git = "https://github.com/paritytech/polkadot", branch = "release-v0.9.28" }
-xcm-builder = { git = "https://github.com/paritytech/polkadot", branch = "release-v0.9.28" }
-xcm-simulator = { git = "https://github.com/paritytech/polkadot", branch = "release-v0.9.28" }
+polkadot-parachain = { git = "https://github.com/paritytech/polkadot", branch = "debug3" }
+polkadot-runtime-parachains = { git = "https://github.com/paritytech/polkadot", branch = "debug3" }
+xcm-builder = { git = "https://github.com/paritytech/polkadot", branch = "debug3" }
+xcm-simulator = { git = "https://github.com/paritytech/polkadot", branch = "debug3" }
 
 # orml
 orml-tokens = { path = "../tokens" }
