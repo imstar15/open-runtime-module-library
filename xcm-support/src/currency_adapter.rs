@@ -34,7 +34,7 @@ enum Error {
 
 impl From<Error> for XcmError {
 	fn from(e: Error) -> Self {
-		log::error!("FailedToTransactAsset!!!!currency_adapter::from, e: {:#?}", e);
+		log::error!("FailedToTransactAsset!!!!currency_adapter::from, e");
 		match e {
 			Error::FailedToMatchFungible => XcmError::FailedToTransactAsset("FailedToMatchFungible"),
 			Error::AccountIdConversionFailed => XcmError::FailedToTransactAsset("AccountIdConversionFailed"),
@@ -53,11 +53,10 @@ pub trait OnDepositFail<CurrencyId, AccountId, Balance> {
 		who: &AccountId,
 		amount: Balance,
 	) -> Result;
-
-	log::error!("FailedToTransactAsset!!!!currency_adapter::OnDepositFail on_deposit_currency_fail");
 	
 	/// Called on unknown asset deposit errors.
 	fn on_deposit_unknown_asset_fail(err: DispatchError, _asset: &MultiAsset, _location: &MultiLocation) -> Result {
+		log::error!("FailedToTransactAsset!!!!currency_adapter::on_deposit_unknown_asset_fail");
 		Err(XcmError::FailedToTransactAsset(err.into()))
 	}
 }
