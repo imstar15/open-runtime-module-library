@@ -175,7 +175,7 @@ impl<
 			let amount: MultiCurrency::Balance = Match::matches_fungible(asset)
 				.ok_or_else(|| XcmError::from(Error::FailedToMatchFungible))?
 				.saturated_into();
-			log::error!("FailedToTransactAsset!!!currency_adapter::withdraw_asset, MultiCurrency::withdraw currency_id: {:#?}, who: {:#?}, amount: {:#?}", currency_id, who, amount);
+			log::error!("FailedToTransactAsset!!!currency_adapter::withdraw_asset, MultiCurrency::withdraw currency_id: {:#?}, who: {:#?}, amount: {:#?}, location: {:#?}", currency_id, who, amount, location);
 			MultiCurrency::withdraw(currency_id, &who, amount).map_err(|e| XcmError::FailedToTransactAsset(e.into()))
 		})?;
 
