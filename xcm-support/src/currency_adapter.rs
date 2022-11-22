@@ -34,7 +34,7 @@ enum Error {
 
 impl From<Error> for XcmError {
 	fn from(e: Error) -> Self {
-		log.error!("currency_adapter::from, e: {:#?}", e);
+		log.error!("FailedToTransactAsset!!!!currency_adapter::from, e: {:#?}", e);
 		match e {
 			Error::FailedToMatchFungible => XcmError::FailedToTransactAsset("FailedToMatchFungible"),
 			Error::AccountIdConversionFailed => XcmError::FailedToTransactAsset("AccountIdConversionFailed"),
