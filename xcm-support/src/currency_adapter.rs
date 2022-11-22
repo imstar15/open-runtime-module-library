@@ -1,5 +1,7 @@
 use codec::FullCodec;
-use frame_support::traits::Get;
+use frame_support::{
+	traits::Get, log,
+};
 use sp_runtime::{
 	traits::{Convert, MaybeSerializeDeserialize, SaturatedConversion},
 	DispatchError,
@@ -32,6 +34,7 @@ enum Error {
 
 impl From<Error> for XcmError {
 	fn from(e: Error) -> Self {
+		log.error!("currency_adapter::from, e: {:#?}", e);
 		match e {
 			Error::FailedToMatchFungible => XcmError::FailedToTransactAsset("FailedToMatchFungible"),
 			Error::AccountIdConversionFailed => XcmError::FailedToTransactAsset("AccountIdConversionFailed"),
@@ -51,6 +54,8 @@ pub trait OnDepositFail<CurrencyId, AccountId, Balance> {
 		amount: Balance,
 	) -> Result;
 
+	log.error!("FailedToTransactAsset!!!!currency_adapter::OnDepositFail on_deposit_currency_fail");
+	
 	/// Called on unknown asset deposit errors.
 	fn on_deposit_unknown_asset_fail(err: DispatchError, _asset: &MultiAsset, _location: &MultiLocation) -> Result {
 		Err(XcmError::FailedToTransactAsset(err.into()))
@@ -64,6 +69,7 @@ impl<CurrencyId, AccountId, Balance> OnDepositFail<CurrencyId, AccountId, Balanc
 		_who: &AccountId,
 		_amount: Balance,
 	) -> Result {
+		log.error!("FailedToTransactAsset!!!currency_adapter::on_deposit_currency_fail 2222");
 		Err(XcmError::FailedToTransactAsset(err.into()))
 	}
 }
@@ -88,6 +94,7 @@ impl<
 		_who: &AccountId,
 		amount: Balance,
 	) -> Result {
+		log.error!("FailedToTransactAsset!!!currency_adapter::on_deposit_currency_fail");
 		MultiCurrency::deposit(currency_id, &Alternative::get(), amount)
 			.map_err(|e| XcmError::FailedToTransactAsset(e.into()))
 	}
@@ -169,6 +176,7 @@ impl<
 			let amount: MultiCurrency::Balance = Match::matches_fungible(asset)
 				.ok_or_else(|| XcmError::from(Error::FailedToMatchFungible))?
 				.saturated_into();
+			log.error!("FailedToTransactAsset!!!currency_adapter::withdraw_asset, MultiCurrency::withdraw");
 			MultiCurrency::withdraw(currency_id, &who, amount).map_err(|e| XcmError::FailedToTransactAsset(e.into()))
 		})?;
 
@@ -189,6 +197,7 @@ impl<
 		let amount: MultiCurrency::Balance = Match::matches_fungible(asset)
 			.ok_or_else(|| XcmError::from(Error::FailedToMatchFungible))?
 			.saturated_into();
+		log.error!("FailedToTransactAsset!!!MultiCurrency::transfer");
 		MultiCurrency::transfer(currency_id, &from_account, &to_account, amount)
 			.map_err(|e| XcmError::FailedToTransactAsset(e.into()))?;
 
