@@ -20,7 +20,7 @@ frame-support = { git = "https://github.com/paritytech/substrate", default-featu
 frame-system = { git = "https://github.com/paritytech/substrate", default-features = false , branch = "polkadot-v0.9.29" }
 
 # cumulus
-cumulus-primitives-core = { git = "https://github.com/imstar15/cumulus", default-features = false , branch = "debug" }
+cumulus-primitives-core = { git = "https://github.com/imstar15/cumulus", default-features = false , branch = "debug3" }
 
 # polkadot
 pallet-xcm = { git = "https://github.com/imstar15/polkadot", default-features = false , branch = "debug3" }
