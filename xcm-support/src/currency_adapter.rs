@@ -1,5 +1,5 @@
 use codec::FullCodec;
-use frame_support::traits::Get;
+use frame_support::{log, traits::Get};
 use sp_runtime::{
 	traits::{Convert, MaybeSerializeDeserialize, SaturatedConversion},
 	DispatchError,
@@ -33,9 +33,18 @@ enum Error {
 impl From<Error> for XcmError {
 	fn from(e: Error) -> Self {
 		match e {
-			Error::FailedToMatchFungible => XcmError::FailedToTransactAsset("FailedToMatchFungible"),
-			Error::AccountIdConversionFailed => XcmError::FailedToTransactAsset("AccountIdConversionFailed"),
-			Error::CurrencyIdConversionFailed => XcmError::FailedToTransactAsset("CurrencyIdConversionFailed"),
+			Error::FailedToMatchFungible => {
+				log::error!("FailedToTransactAssets FailedToMatchFungible 111");
+				XcmError::FailedToTransactAsset("FailedToMatchFungible")
+			},
+			Error::AccountIdConversionFailed => {
+				log::error!("FailedToTransactAssets AccountIdConversionFailed 111");
+				XcmError::FailedToTransactAsset("AccountIdConversionFailed")
+			},
+			Error::CurrencyIdConversionFailed => {
+				log::error!("FailedToTransactAssets CurrencyIdConversionFailed 111");
+				XcmError::FailedToTransactAsset("CurrencyIdConversionFailed")
+			},
 		}
 	}
 }
@@ -53,6 +62,7 @@ pub trait OnDepositFail<CurrencyId, AccountId, Balance> {
 
 	/// Called on unknown asset deposit errors.
 	fn on_deposit_unknown_asset_fail(err: DispatchError, _asset: &MultiAsset, _location: &MultiLocation) -> Result {
+		log::error!("FailedToTransactAssets on_deposit_unknown_asset_fail");
 		Err(XcmError::FailedToTransactAsset(err.into()))
 	}
 }
@@ -64,6 +74,7 @@ impl<CurrencyId, AccountId, Balance> OnDepositFail<CurrencyId, AccountId, Balanc
 		_who: &AccountId,
 		_amount: Balance,
 	) -> Result {
+		log::error!("FailedToTransactAssets on_deposit_currency_fail");
 		Err(XcmError::FailedToTransactAsset(err.into()))
 	}
 }
@@ -88,8 +99,11 @@ impl<
 		_who: &AccountId,
 		amount: Balance,
 	) -> Result {
-		MultiCurrency::deposit(currency_id, &Alternative::get(), amount)
-			.map_err(|e| XcmError::FailedToTransactAsset(e.into()))
+		log::error!("FailedToTransactAssets on_deposit_currency_fail 222 S");
+		let result = MultiCurrency::deposit(currency_id, &Alternative::get(), amount)
+			.map_err(|e| XcmError::FailedToTransactAsset(e.into()));
+		log::error!("FailedToTransactAssets on_deposit_currency_fail 222 E");
+		result
 	}
 }
 
@@ -169,7 +183,10 @@ impl<
 			let amount: MultiCurrency::Balance = Match::matches_fungible(asset)
 				.ok_or_else(|| XcmError::from(Error::FailedToMatchFungible))?
 				.saturated_into();
-			MultiCurrency::withdraw(currency_id, &who, amount).map_err(|e| XcmError::FailedToTransactAsset(e.into()))
+			log::error!("FailedToTransactAssets withdraw_asset 222 S");
+			let result = MultiCurrency::withdraw(currency_id, &who, amount).map_err(|e| XcmError::FailedToTransactAsset(e.into()))
+			log::error!("FailedToTransactAssets withdraw_asset 222 E");
+			result
 		})?;
 
 		Ok(asset.clone().into())
