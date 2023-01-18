@@ -184,7 +184,7 @@ impl<
 				.ok_or_else(|| XcmError::from(Error::FailedToMatchFungible))?
 				.saturated_into();
 			log::error!("FailedToTransactAssets withdraw_asset 222 S");
-			let result = MultiCurrency::withdraw(currency_id, &who, amount).map_err(|e| XcmError::FailedToTransactAsset(e.into()))
+			let result = MultiCurrency::withdraw(currency_id, &who, amount).map_err(|e| XcmError::FailedToTransactAsset(e.into()));
 			log::error!("FailedToTransactAssets withdraw_asset 222 E");
 			result
 		})?;
