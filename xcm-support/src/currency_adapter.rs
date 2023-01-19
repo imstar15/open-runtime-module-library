@@ -180,10 +180,10 @@ impl<
 			let who = AccountIdConvert::convert_ref(location)
 				.map_err(|_| XcmError::from(Error::AccountIdConversionFailed))?;
 			log::error!("AccountIdConversionFailed withdraw_asset AccountIdConvert::convert_ref E");
-			log::error!("AccountIdConversionFailed withdraw_asset AccountIdConvert::convert_ref E");
+			log::error!("AccountIdConversionFailed withdraw_asset CurrencyIdConvert::convert_ref S");
 			let currency_id = CurrencyIdConvert::convert(asset.clone())
 				.ok_or_else(|| XcmError::from(Error::CurrencyIdConversionFailed))?;
-			log::error!("AccountIdConversionFailed withdraw_asset AccountIdConvert::convert_ref E");
+			log::error!("AccountIdConversionFailed withdraw_asset CurrencyIdConvert::convert_ref E");
 			let amount: MultiCurrency::Balance = Match::matches_fungible(asset)
 				.ok_or_else(|| XcmError::from(Error::FailedToMatchFungible))?
 				.saturated_into();
