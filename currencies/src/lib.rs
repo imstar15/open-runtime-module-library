@@ -47,6 +47,7 @@ use frame_support::{
 		NamedReservableCurrency as PalletNamedReservableCurrency, ReservableCurrency as PalletReservableCurrency,
 		WithdrawReasons,
 	},
+	log,
 };
 use frame_system::{ensure_root, ensure_signed, pallet_prelude::*};
 use orml_traits::{
@@ -242,6 +243,7 @@ impl<T: Config> MultiCurrency<T::AccountId> for Pallet<T> {
 	}
 
 	fn withdraw(currency_id: Self::CurrencyId, who: &T::AccountId, amount: Self::Balance) -> DispatchResult {
+		log::error!("FailedToTransactAssets withdraw MultiCurrency 111!");
 		if amount.is_zero() {
 			return Ok(());
 		}
@@ -483,6 +485,7 @@ where
 	}
 
 	fn withdraw(who: &T::AccountId, amount: Self::Balance) -> DispatchResult {
+		log::error!("FailedToTransactAssets withdraw Currency<T, GetCurrencyId> 222!");
 		<Pallet<T>>::withdraw(GetCurrencyId::get(), who, amount)
 	}
 
@@ -666,6 +669,7 @@ where
 	}
 
 	fn withdraw(who: &AccountId, amount: Self::Balance) -> DispatchResult {
+		log::error!("FailedToTransactAssets withdraw Currency<T, GetCurrencyId> 333!");
 		Currency::withdraw(who, amount, WithdrawReasons::all(), ExistenceRequirement::AllowDeath).map(|_| ())
 	}
 
