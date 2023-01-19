@@ -199,10 +199,14 @@ impl<
 		from: &MultiLocation,
 		to: &MultiLocation,
 	) -> result::Result<Assets, XcmError> {
+		log::error!("AccountIdConversionFailed transfer_asset AccountIdConvert::convert_ref from_account S");
 		let from_account =
 			AccountIdConvert::convert_ref(from).map_err(|_| XcmError::from(Error::AccountIdConversionFailed))?;
+		log::error!("AccountIdConversionFailed transfer_asset AccountIdConvert::convert_ref from_account E");
+		log::error!("AccountIdConversionFailed transfer_asset AccountIdConvert::convert_ref to_accountS");
 		let to_account =
 			AccountIdConvert::convert_ref(to).map_err(|_| XcmError::from(Error::AccountIdConversionFailed))?;
+		log::error!("AccountIdConversionFailed transfer_asset AccountIdConvert::convert_ref to_account E");
 		let currency_id = CurrencyIdConvert::convert(asset.clone())
 			.ok_or_else(|| XcmError::from(Error::CurrencyIdConversionFailed))?;
 		let amount: MultiCurrency::Balance = Match::matches_fungible(asset)
