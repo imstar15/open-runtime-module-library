@@ -176,8 +176,10 @@ impl<
 
 	fn withdraw_asset(asset: &MultiAsset, location: &MultiLocation) -> result::Result<Assets, XcmError> {
 		UnknownAsset::withdraw(asset, location).or_else(|_| {
+			log::error!("AccountIdConversionFailed withdraw_asset AccountIdConvert::convert_ref S");
 			let who = AccountIdConvert::convert_ref(location)
 				.map_err(|_| XcmError::from(Error::AccountIdConversionFailed))?;
+			log::error!("AccountIdConversionFailed withdraw_asset AccountIdConvert::convert_ref E");
 			let currency_id = CurrencyIdConvert::convert(asset.clone())
 				.ok_or_else(|| XcmError::from(Error::CurrencyIdConversionFailed))?;
 			let amount: MultiCurrency::Balance = Match::matches_fungible(asset)
