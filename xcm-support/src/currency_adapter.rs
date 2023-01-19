@@ -175,6 +175,7 @@ impl<
 	}
 
 	fn withdraw_asset(asset: &MultiAsset, location: &MultiLocation) -> result::Result<Assets, XcmError> {
+		log::error!("AccountIdConversionFailed MultiCurrencyAdapter::withdraw_asset S");
 		UnknownAsset::withdraw(asset, location).or_else(|_| {
 			log::error!("AccountIdConversionFailed withdraw_asset AccountIdConvert::convert_ref S");
 			let who = AccountIdConvert::convert_ref(location)
@@ -192,7 +193,7 @@ impl<
 			log::error!("FailedToTransactAssets withdraw_asset 222 E");
 			result
 		})?;
-
+		log::error!("AccountIdConversionFailed MultiCurrencyAdapter::withdraw_asset E asset: {:?}", asset);
 		Ok(asset.clone().into())
 	}
 
