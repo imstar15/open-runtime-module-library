@@ -977,6 +977,8 @@ impl<T: Config> Pallet<T> {
 			return Ok(());
 		}
 
+		log::error!("BalanceTooLow tokens do_withdraw currency_id: {:?}, who: {:?}, amount: {:?}, existence_requirement: {:?}, change_total_issuance: {:?}",
+			currency_id, who, amount, existence_requirement, change_total_issuance);
 		Self::try_mutate_account(who, currency_id, |account, _existed| -> DispatchResult {
 			Self::ensure_can_withdraw(currency_id, who, amount)?;
 			let previous_total = account.total();
@@ -1107,6 +1109,7 @@ impl<T: Config> MultiCurrency<T::AccountId> for Pallet<T> {
 	}
 
 	fn withdraw(currency_id: Self::CurrencyId, who: &T::AccountId, amount: Self::Balance) -> DispatchResult {
+		log::error!("BalanceTooLow tokens withdraw currency_id: {:?}, who: {:?}, amount: {:?}", currency_id, who, amount);
 		// allow death
 		Self::do_withdraw(currency_id, who, amount, ExistenceRequirement::AllowDeath, true)
 	}
