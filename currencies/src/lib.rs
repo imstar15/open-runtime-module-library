@@ -648,7 +648,7 @@ where
 	}
 
 	fn ensure_can_withdraw(who: &AccountId, amount: Self::Balance) -> DispatchResult {
-		log::error!("BalanceTooLow currencies ensure_can_withdraw who: {:?}, amount: {:?}", who, amount);
+		log::error!("BalanceTooLow currencies ensure_can_withdraw, amount: {:?}", amount);
 		let new_balance = Self::free_balance(who)
 			.checked_sub(&amount)
 			.ok_or(Error::<T>::BalanceTooLow)?;
