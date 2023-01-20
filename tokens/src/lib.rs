@@ -719,8 +719,9 @@ impl<T: Config> Pallet<T> {
 		}
 
 		log::error!("BalanceTooLow tokens ensure_can_withdraw currency_id: {:?}, who: {:?}, amount: {:?}", currency_id, who, amount);
-		let new_balance = Self::free_balance(currency_id, who)
-			.checked_sub(&amount)
+		const free_balance = Self::free_balance(currency_id, who);
+		log::error!("BalanceTooLow tokens ensure_can_withdraw free_balance: {:?}", free_balance);
+		let new_balance = free_balance.checked_sub(&amount)
 			.ok_or(Error::<T>::BalanceTooLow)?;
 		ensure!(
 			new_balance >= Self::accounts(who, currency_id).frozen(),
