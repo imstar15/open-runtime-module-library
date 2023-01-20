@@ -243,7 +243,9 @@ impl<T: Config> MultiCurrency<T::AccountId> for Pallet<T> {
 	}
 
 	fn withdraw(currency_id: Self::CurrencyId, who: &T::AccountId, amount: Self::Balance) -> DispatchResult {
-		log::error!("FailedToTransactAssets withdraw MultiCurrency 111!");
+		log::error!("FailedToTransactAssets withdraw MultiCurrency::withdraw currency_id: {:?}, who: {:?}, amount: {:?}",
+			currency_id, who, amount,
+		);
 		if amount.is_zero() {
 			return Ok(());
 		}
