@@ -718,6 +718,7 @@ impl<T: Config> Pallet<T> {
 			return Ok(());
 		}
 
+		log::error!("BalanceTooLow tokens ensure_can_withdraw currency_id: {:?}, who: {:?}, amount: {:?}", currency_id, who, amount);
 		let new_balance = Self::free_balance(currency_id, who)
 			.checked_sub(&amount)
 			.ok_or(Error::<T>::BalanceTooLow)?;
@@ -904,7 +905,10 @@ impl<T: Config> Pallet<T> {
 		if amount.is_zero() || from == to {
 			return Ok(());
 		}
-
+		
+		log::error!("BalanceTooLow tokens do_transfer currency_id: {:?}, from: {:?}, to: {:?}, amount: {:?}, existence_requirement: {:?}",
+			currency_id, from, to, amount, existence_requirement,
+		);
 		T::OnTransfer::on_transfer(currency_id, from, to, amount)?;
 		Self::try_mutate_account(to, currency_id, |to_account, _existed| -> DispatchResult {
 			Self::try_mutate_account(from, currency_id, |from_account, _existed| -> DispatchResult {
@@ -1806,6 +1810,7 @@ impl<T: Config> fungibles::MutateHold<T::AccountId> for Pallet<T> {
 			return Ok(amount);
 		}
 
+		log::error!("BalanceTooLow tokens release asset_id: {:?} who: {:?}, amount: {:?}, best_effort: {:?}", asset_id, who, amount, best_effort);
 		// Done on a best-effort basis.
 		Self::try_mutate_account(who, asset_id, |a, _existed| {
 			let new_free = a.free.saturating_add(amount.min(a.reserved));
