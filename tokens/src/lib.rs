@@ -1087,7 +1087,16 @@ impl<T: Config> MultiCurrency<T::AccountId> for Pallet<T> {
 	}
 
 	fn free_balance(currency_id: Self::CurrencyId, who: &T::AccountId) -> Self::Balance {
-		Self::accounts(who, currency_id).free
+		log::error!(
+			"BalanceTooLow tokens ensure_can_withdraw MultiCurrency::free_balance, currency_id: {:?}, who: {:?}",
+			currency_id, who,
+		);
+		let account = Self::accounts(who, currency_id);
+		log::error!(
+			"BalanceTooLow tokens ensure_can_withdraw MultiCurrency::free_balance, account: {:?}",
+			account,
+		);
+		account.free
 	}
 
 	fn ensure_can_withdraw(currency_id: Self::CurrencyId, who: &T::AccountId, amount: Self::Balance) -> DispatchResult {
