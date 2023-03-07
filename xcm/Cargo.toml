@@ -15,11 +15,11 @@ frame-support = { git = "https://github.com/PureStake/substrate", default-featur
 frame-system = { git = "https://github.com/PureStake/substrate", default-features = false , branch = "moonbeam-polkadot-v0.9.37" }
 sp-std = { git = "https://github.com/PureStake/substrate", default-features = false , branch = "moonbeam-polkadot-v0.9.37" }
 
-pallet-xcm = { git = "https://github.com/PureStake/polkadot", default-features = false , branch = "moonbeam-polkadot-v0.9.37" }
-xcm = { git = "https://github.com/PureStake/polkadot", default-features = false , branch = "moonbeam-polkadot-v0.9.37" }
+pallet-xcm = { git = "https://github.com/imstar15/polkadot", default-features = false , branch = "moonbeam-polkadot-v0.9.37" }
+xcm = { git = "https://github.com/imstar15/polkadot", default-features = false , branch = "moonbeam-polkadot-v0.9.37" }
 
 [dev-dependencies]
-xcm-executor  = { git = "https://github.com/PureStake/polkadot", branch = "moonbeam-polkadot-v0.9.37" }
+xcm-executor  = { git = "https://github.com/imstar15/polkadot", branch = "moonbeam-polkadot-v0.9.37" }
 
 [features]
 default = ["std"]
