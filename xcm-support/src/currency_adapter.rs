@@ -143,7 +143,7 @@ impl<
 		CurrencyId,
 		CurrencyIdConvert,
 		DepositFailureHandler,
-	>
+	> where [u8; 32]: From<AccountId>
 {
 	fn deposit_asset(asset: &MultiAsset, location: &MultiLocation, _context: &XcmContext) -> Result {
 		match (
