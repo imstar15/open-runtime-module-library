@@ -823,7 +823,7 @@ pub mod module {
 
 			let self_location = T::SelfLocation::get();
 			ensure!(dest != self_location, Error::<T>::NotCrossChainTransfer);
-			log::error!("AssetHasNoReserve!!! BBB");
+			log::error!("AssetHasNoReserve!!! BBB Before");
 			let reserve = reserve.ok_or(Error::<T>::AssetHasNoReserve)?;
 			log::error!("AssetHasNoReserve!!! BBB");
 			let transfer_kind = if reserve == self_location {
