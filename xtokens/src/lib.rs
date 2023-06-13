@@ -658,8 +658,9 @@ pub mod module {
 			dest_weight_limit: WeightLimit,
 			use_teleport: bool,
 		) -> DispatchResult {
-			log::error!("execute_and_send_reserve_kind_xcm!!!");
+			log::error!("execute_and_send_reserve_kind_xcm!!! S, reserve: {:?}", reserve);
 			let (transfer_kind, dest, reserve, recipient) = Self::transfer_kind(reserve, dest)?;
+			log::error!("execute_and_send_reserve_kind_xcm!!! E");
 			let recipient = match maybe_recipient_override {
 				Some(recipient) => recipient,
 				None => recipient,
@@ -830,6 +831,7 @@ pub mod module {
 			reserve: Option<MultiLocation>,
 			dest: &MultiLocation,
 		) -> Result<(TransferKind, MultiLocation, MultiLocation, MultiLocation), DispatchError> {
+			log::error!("transfer_kind!!! reserve: {:?}, dest: {:?}", reserve, dest);
 			let (dest, recipient) = Self::ensure_valid_dest(dest)?;
 
 			let self_location = T::SelfLocation::get();
