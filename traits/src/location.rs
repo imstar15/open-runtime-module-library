@@ -16,7 +16,7 @@ fn is_chain_junction(junction: Option<&Junction>) -> bool {
 
 impl Parse for MultiLocation {
 	fn chain_part(&self) -> Option<MultiLocation> {
-		log::error!("chain_part!!!");
+		log::error!("chain_part!!!, self.parents: {:?}, self.first_interior(): {:?}", self.parents, self.first_interior());
 		match (self.parents, self.first_interior()) {
 			// sibling parachain
 			(1, Some(Parachain(id))) => Some(MultiLocation::new(1, X1(Parachain(*id)))),
