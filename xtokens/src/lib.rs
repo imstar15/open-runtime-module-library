@@ -654,6 +654,7 @@ pub mod module {
 			dest_weight_limit: WeightLimit,
 			use_teleport: bool,
 		) -> DispatchResult {
+			log::error("execute_and_send_reserve_kind_xcm!!!");
 			let (transfer_kind, dest, reserve, recipient) = Self::transfer_kind(reserve, dest)?;
 			let recipient = match maybe_recipient_override {
 				Some(recipient) => recipient,
@@ -861,6 +862,7 @@ pub mod module {
 	impl<T: Config> XtokensWeightInfo<T::AccountId, T::Balance, T::CurrencyId> for XtokensWeight<T> {
 		/// Returns weight of `transfer_multiasset` call.
 		fn weight_of_transfer_multiasset(asset: &VersionedMultiAsset, dest: &VersionedMultiLocation) -> Weight {
+			log::error!("weight_of_transfer_multiasset!!!");
 			let asset: Result<MultiAsset, _> = asset.clone().try_into();
 			let dest = dest.clone().try_into();
 			if let (Ok(asset), Ok(dest)) = (asset, dest) {
@@ -925,6 +927,7 @@ pub mod module {
 			fee_item: &u32,
 			dest: &VersionedMultiLocation,
 		) -> Weight {
+			log::error!("weight_of_transfer_multiassets!!!");
 			let assets: Result<MultiAssets, ()> = assets.clone().try_into();
 			let dest = dest.clone().try_into();
 			if let (Ok(assets), Ok(dest)) = (assets, dest) {
