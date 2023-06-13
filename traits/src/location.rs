@@ -16,7 +16,7 @@ fn is_chain_junction(junction: Option<&Junction>) -> bool {
 
 impl Parse for MultiLocation {
 	fn chain_part(&self) -> Option<MultiLocation> {
-		log::error!("chain_part!!!, self.parents: {:?}, self.first_interior(): {:?}", self.parents, self.first_interior());
+		log::error!("MultiLocation::chain_part!!!, self.parents: {:?}, self.first_interior(): {:?}", self.parents, self.first_interior());
 		match (self.parents, self.first_interior()) {
 			// sibling parachain
 			(1, Some(Parachain(id))) => Some(MultiLocation::new(1, X1(Parachain(*id)))),
@@ -24,7 +24,7 @@ impl Parse for MultiLocation {
 			(1, _) => Some(MultiLocation::parent()),
 			// children parachain
 			(0, Some(Parachain(id))) => {
-				log::error!("chain_part!!! AAA");
+				log::error!("MultiLocation::chain_part!!! AAA");
 				Some(MultiLocation::new(0, X1(Parachain(*id))))
 			},
 			_ => {
@@ -59,9 +59,9 @@ pub struct AbsoluteReserveProvider;
 impl Reserve for AbsoluteReserveProvider {
 	fn reserve(asset: &MultiAsset) -> Option<MultiLocation> {
 		if let Concrete(location) = &asset.id {
-			log::error!("location.chain_part S, location: {:?}", location);
+			log::error!("AbsoluteReserveProvider::reserve, location.chain_part S, location: {:?}", location);
 			let result = location.chain_part();
-			log::error!("location.chain_part E, result: {:?}", result);
+			log::error!("AbsoluteReserveProvider::reserve, location.chain_part E, result: {:?}", result);
 			result
 		} else {
 			None
