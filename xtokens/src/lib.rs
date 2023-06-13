@@ -586,6 +586,7 @@ pub mod module {
 				// We can use `MinXcmFee` configuration to decide which target parachain use
 				// teleport. But as current there's only one case which is Parachain send back
 				// asset to Statemine/t, So we set `use_teleport` to always `true` in this case.
+				log::error("execute_and_send_reserve_kind_xcm AAA S, fee_reserve: {:?}", fee_reserve);
 				Self::execute_and_send_reserve_kind_xcm(
 					origin_location,
 					assets_to_fee_reserve,
@@ -596,8 +597,10 @@ pub mod module {
 					dest_weight_limit.clone(),
 					true,
 				)?;
+				log::error("execute_and_send_reserve_kind_xcm AAA E");
 
 				// Second xcm send to dest chain.
+				log::error("execute_and_send_reserve_kind_xcm BBB S, fee_reserve: {:?}", fee_reserve);
 				Self::execute_and_send_reserve_kind_xcm(
 					origin_location,
 					assets_to_dest,
@@ -608,7 +611,9 @@ pub mod module {
 					dest_weight_limit,
 					false,
 				)?;
+				log::error("execute_and_send_reserve_kind_xcm BBB E");
 			} else {
+				log::error("execute_and_send_reserve_kind_xcm CCC S, fee_reserve: {:?}", fee_reserve);
 				Self::execute_and_send_reserve_kind_xcm(
 					origin_location,
 					assets.clone(),
@@ -619,6 +624,7 @@ pub mod module {
 					dest_weight_limit,
 					false,
 				)?;
+				log::error("execute_and_send_reserve_kind_xcm CCC E");
 			}
 
 			Self::deposit_event(Event::<T>::TransferredMultiAssets {
