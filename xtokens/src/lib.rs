@@ -525,6 +525,7 @@ pub mod module {
 
 			let mut non_fee_reserve: Option<MultiLocation> = None;
 			let asset_len = assets.len();
+			log::error!("do_transfer_multiassets, GGG, asset_len: {:?}", asset_len);
 			for i in 0..asset_len {
 				let asset = assets.get(i).ok_or(Error::<T>::AssetIndexNonExistent)?;
 				ensure!(
@@ -533,6 +534,7 @@ pub mod module {
 				);
 				// `assets` includes fee, the reserve location is decided by non fee asset
 				if (fee != *asset && non_fee_reserve.is_none()) || asset_len == 1 {
+					log::error!("do_transfer_multiassets, GGG, asset: {:?}", asset);
 					non_fee_reserve = T::ReserveProvider::reserve(asset);
 				}
 				// make sure all non fee assets share the same reserve
