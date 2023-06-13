@@ -865,8 +865,8 @@ pub mod module {
 			log::error!("weight_of_transfer_multiasset!!!");
 			let asset: Result<MultiAsset, _> = asset.clone().try_into();
 			let dest = dest.clone().try_into();
-			log::error!("weight_of_transfer_multiasset!!!, asset: {:?}, T::ReserveProvider::reserve(&asset): {:?}", asset, T::ReserveProvider::reserve(&asset));
 			if let (Ok(asset), Ok(dest)) = (asset, dest) {
+				log::error!("weight_of_transfer_multiasset!!!, asset: {:?}, T::ReserveProvider::reserve(&asset): {:?}", asset, T::ReserveProvider::reserve(&asset));
 				if let Ok((transfer_kind, dest, _, reserve)) =
 					Pallet::<T>::transfer_kind(T::ReserveProvider::reserve(&asset), &dest)
 				{
