@@ -531,6 +531,7 @@ pub mod module {
 				);
 				// `assets` includes fee, the reserve location is decided by non fee asset
 				if (fee != *asset && non_fee_reserve.is_none()) || asset_len == 1 {
+					log::error!("do_transfer_multiassets, non_fee_reserve!!!!");
 					non_fee_reserve = T::ReserveProvider::reserve(asset);
 				}
 				// make sure all non fee assets share the same reserve
@@ -543,7 +544,9 @@ pub mod module {
 			}
 
 			let fee_reserve = T::ReserveProvider::reserve(&fee);
+			log::error!("do_transfer_multiassets, fee_reserve: {:?}, non_fee_reserve: {:?}", fee_reserve, non_fee_reserve);
 			if fee_reserve != non_fee_reserve {
+				log::error!("do_transfer_multiassets, xxx");
 				// Current only support `ToReserve` with relay-chain asset as fee. other case
 				// like `NonReserve` or `SelfReserve` with relay-chain fee is not support.
 				ensure!(non_fee_reserve == dest.chain_part(), Error::<T>::InvalidAsset);
@@ -605,6 +608,7 @@ pub mod module {
 					false,
 				)?;
 			} else {
+				log::error!("do_transfer_multiassets, yyy, ");
 				Self::execute_and_send_reserve_kind_xcm(
 					origin_location,
 					assets.clone(),
@@ -645,17 +649,26 @@ pub mod module {
 				None => recipient,
 			};
 			let mut msg = match transfer_kind {
-				SelfReserveAsset => Self::transfer_self_reserve_asset(assets, fee, dest, recipient, dest_weight_limit)?,
-				ToReserve => Self::transfer_to_reserve(assets, fee, dest, recipient, dest_weight_limit)?,
-				ToNonReserve => Self::transfer_to_non_reserve(
-					assets,
-					fee,
-					reserve,
-					dest,
-					recipient,
-					dest_weight_limit,
-					use_teleport,
-				)?,
+				SelfReserveAsset => {
+					log::error!("do_transfer_multiassets, SelfReserveAsset");
+					Self::transfer_self_reserve_asset(assets, fee, dest, recipient, dest_weight_limit)?
+				},
+				ToReserve => {
+					log::error!("do_transfer_multiassets, ToReserve");
+					Self::transfer_to_reserve(assets, fee, dest, recipient, dest_weight_limit)?
+				},
+				ToNonReserve => {
+					log::error!("do_transfer_multiassets, ToNonReserve");
+					Self::transfer_to_non_reserve(
+						assets,
+						fee,
+						reserve,
+						dest,
+						recipient,
+						dest_weight_limit,
+						use_teleport,
+					)?
+				},
 			};
 			let hash = msg.using_encoded(sp_io::hashing::blake2_256);
 
@@ -785,7 +798,7 @@ pub mod module {
 		) -> Result<Instruction<()>, DispatchError> {
 			let ancestry = T::UniversalLocation::get();
 			let fees = asset.reanchored(at, ancestry).map_err(|_| Error::<T>::CannotReanchor)?;
-
+			log::error!("buy_execution!!! fees: {:?}, weight_limit: {:?}", fees, weight_limit);
 			Ok(BuyExecution { fees, weight_limit })
 		}
 
