@@ -654,7 +654,7 @@ pub mod module {
 			dest_weight_limit: WeightLimit,
 			use_teleport: bool,
 		) -> DispatchResult {
-			log::error("execute_and_send_reserve_kind_xcm!!!");
+			log::error!("execute_and_send_reserve_kind_xcm!!!");
 			let (transfer_kind, dest, reserve, recipient) = Self::transfer_kind(reserve, dest)?;
 			let recipient = match maybe_recipient_override {
 				Some(recipient) => recipient,
