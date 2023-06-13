@@ -600,7 +600,7 @@ pub mod module {
 				log::error!("execute_and_send_reserve_kind_xcm AAA E");
 
 				// Second xcm send to dest chain.
-				log::error!("execute_and_send_reserve_kind_xcm BBB S, fee_reserve: {:?}", fee_reserve);
+				log::error!("execute_and_send_reserve_kind_xcm BBB S, non_fee_reserve: {:?}", non_fee_reserve);
 				Self::execute_and_send_reserve_kind_xcm(
 					origin_location,
 					assets_to_dest,
@@ -613,7 +613,7 @@ pub mod module {
 				)?;
 				log::error!("execute_and_send_reserve_kind_xcm BBB E");
 			} else {
-				log::error!("execute_and_send_reserve_kind_xcm CCC S, fee_reserve: {:?}", fee_reserve);
+				log::error!("execute_and_send_reserve_kind_xcm CCC S, non_fee_reserve: {:?}", non_fee_reserve);
 				Self::execute_and_send_reserve_kind_xcm(
 					origin_location,
 					assets.clone(),
