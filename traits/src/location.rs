@@ -1,5 +1,6 @@
 use sp_core::{bounded::BoundedVec, ConstU32};
 use xcm::v3::prelude::*;
+use frame_support::log;
 
 pub trait Parse {
 	/// Returns the "chain" location part. It could be parent, sibling
@@ -51,7 +52,10 @@ pub struct AbsoluteReserveProvider;
 impl Reserve for AbsoluteReserveProvider {
 	fn reserve(asset: &MultiAsset) -> Option<MultiLocation> {
 		if let Concrete(location) = &asset.id {
-			location.chain_part()
+			log::error!("location.chain_part S, location: {:?}", location);
+			let result = location.chain_part();
+			log::error!("location.chain_part E, result: {:?}", result);
+			result
 		} else {
 			None
 		}
