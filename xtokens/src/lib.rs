@@ -544,7 +544,9 @@ pub mod module {
 				}
 			}
 
+			log::error!("do_transfer_multiassets, fee: {:?}", fee);
 			let fee_reserve = T::ReserveProvider::reserve(&fee);
+			log::error!("do_transfer_multiassets, fee_reserve: {:?}, non_fee_reserve: {:?}", fee_reserve, non_fee_reserve);
 			if fee_reserve != non_fee_reserve {
 				// Current only support `ToReserve` with relay-chain asset as fee. other case
 				// like `NonReserve` or `SelfReserve` with relay-chain fee is not support.
