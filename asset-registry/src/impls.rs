@@ -115,31 +115,61 @@ impl<W: WeightToFeeConverter, R: TakeRevenue> WeightTrader for AssetRegistryTrad
 				asset,
 			);
 			if let AssetId::Concrete(ref location) = asset {
+				log::error!(
+					target: "xcm::weight",
+					"AssetRegistryTrader::buy_weight location: {:?}",
+					asset,
+				);
 				if matches!(self.bought_weight, Some(ref bought) if &bought.asset_location != location) {
 					// we already bought another asset - don't attempt to buy this one since
 					// we won't be able to refund it
 					continue;
 				}
-
+				log::error!(
+					target: "xcm::weight",
+					"AssetRegistryTrader::buy_weight 222",
+				);
 				if let Some(fee_increase) = W::convert_weight_to_fee(location, weight) {
+					log::error!(
+						target: "xcm::weight",
+						"AssetRegistryTrader::buy_weight 333",
+					);
 					if fee_increase == 0 {
+						log::error!(
+							target: "xcm::weight",
+							"AssetRegistryTrader::buy_weight 444",
+						);
 						// if the fee is set very low it could lead to zero fees, in which case
 						// constructing the fee asset item to subtract from payment would fail.
 						// Therefore, provide early exit
 						return Ok(payment);
 					}
-
+					log::error!(
+						target: "xcm::weight",
+						"AssetRegistryTrader::buy_weight 555",
+					);
 					if let Ok(unused) = payment.clone().checked_sub((*asset, fee_increase).into()) {
+						log::error!(
+							target: "xcm::weight",
+							"AssetRegistryTrader::buy_weight 666",
+						);
 						let (existing_weight, existing_fee) = match self.bought_weight {
 							Some(ref x) => (x.weight, x.amount),
 							None => (Weight::zero(), 0),
 						};
-
+						log::error!(
+							target: "xcm::weight",
+							"AssetRegistryTrader::buy_weight 777",
+						);
 						self.bought_weight = Some(BoughtWeight {
 							amount: existing_fee.checked_add(fee_increase).ok_or(XcmError::Overflow)?,
 							weight: existing_weight.checked_add(&weight).ok_or(XcmError::Overflow)?,
 							asset_location: *location,
 						});
+						log::error!(
+							target: "xcm::weight",
+							"AssetRegistryTrader::buy_weight 888",
+						);
 						return Ok(unused);
 					}
 				}
