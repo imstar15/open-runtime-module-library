@@ -4,7 +4,7 @@
 #![allow(clippy::large_enum_variant)]
 #![allow(clippy::too_many_arguments)]
 
-use frame_support::{pallet_prelude::*, traits::EnsureOriginWithArg};
+use frame_support::{log, pallet_prelude::*, traits::EnsureOriginWithArg};
 use frame_system::pallet_prelude::*;
 pub use orml_traits::asset_registry::AssetMetadata;
 use orml_traits::asset_registry::AssetProcessor;
