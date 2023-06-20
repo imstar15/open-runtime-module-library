@@ -96,7 +96,24 @@ impl<W: WeightToFeeConverter, R: TakeRevenue> WeightTrader for AssetRegistryTrad
 			weight, payment,
 		);
 
+		log::error!(
+			target: "xcm::weight",
+			"AssetRegistryTrader::buy_weight weight: ({:?}, {:?})",
+			weight.ref_time(), weight.proof_size(),
+		);
+
+		log::error!(
+			target: "xcm::weight",
+			"AssetRegistryTrader::buy_weight payment.fungible: {:?}",
+			payment.fungible,
+		);
+
 		for (asset, _) in payment.fungible.iter() {
+			log::error!(
+				target: "xcm::weight",
+				"AssetRegistryTrader::buy_weight asset: {:?}",
+				asset,
+			);
 			if let AssetId::Concrete(ref location) = asset {
 				if matches!(self.bought_weight, Some(ref bought) if &bought.asset_location != location) {
 					// we already bought another asset - don't attempt to buy this one since
@@ -128,6 +145,10 @@ impl<W: WeightToFeeConverter, R: TakeRevenue> WeightTrader for AssetRegistryTrad
 				}
 			}
 		}
+		log::error!(
+			target: "xcm::weight",
+			"AssetRegistryTrader::buy_weight XcmError::TooExpensive",
+		);
 		Err(XcmError::TooExpensive)
 	}
 
