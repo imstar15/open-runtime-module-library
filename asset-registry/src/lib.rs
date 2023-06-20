@@ -278,8 +278,12 @@ impl<T: Config> Pallet<T> {
 	pub fn fetch_metadata_by_location(
 		location: &MultiLocation,
 	) -> Option<AssetMetadata<T::Balance, T::CustomMetadata>> {
+		log::error!("fetch_metadata_by_location: 111");
 		let asset_id = LocationToAssetId::<T>::get(location)?;
-		Metadata::<T>::get(asset_id)
+		log::error!("fetch_metadata_by_location: 222");
+		let result = Metadata::<T>::get(asset_id);
+		log::error!("fetch_metadata_by_location: 333, result: {:?}", result);
+		result
 	}
 
 	pub fn multilocation(asset_id: &T::AssetId) -> Result<Option<MultiLocation>, DispatchError> {
