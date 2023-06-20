@@ -54,7 +54,9 @@ where
 pub struct FixedRateAssetRegistryTrader<P: FixedConversionRateProvider>(PhantomData<P>);
 impl<P: FixedConversionRateProvider> WeightToFeeConverter for FixedRateAssetRegistryTrader<P> {
 	fn convert_weight_to_fee(location: &MultiLocation, weight: Weight) -> Option<u128> {
+		log::error!("FixedConversionRateProvider::convert_weight_to_fee, location: {:?}, weight: {:?}", location, weight);
 		let fee_per_second = P::get_fee_per_second(location)?;
+		log::error!("FixedConversionRateProvider::convert_weight_to_fee, 222");
 		let weight_ratio = FixedU128::saturating_from_rational(weight.ref_time(), WEIGHT_REF_TIME_PER_SECOND);
 		let amount = weight_ratio.saturating_mul_int(fee_per_second);
 		Some(amount)
@@ -173,6 +175,10 @@ impl<W: WeightToFeeConverter, R: TakeRevenue> WeightTrader for AssetRegistryTrad
 						return Ok(unused);
 					}
 				}
+				log::error!(
+					target: "xcm::weight",
+					"AssetRegistryTrader::buy_weight 999",
+				);
 			}
 		}
 		log::error!(
