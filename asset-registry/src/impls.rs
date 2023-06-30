@@ -56,9 +56,11 @@ impl<P: FixedConversionRateProvider> WeightToFeeConverter for FixedRateAssetRegi
 	fn convert_weight_to_fee(location: &MultiLocation, weight: Weight) -> Option<u128> {
 		log::error!("FixedConversionRateProvider::convert_weight_to_fee, location: {:?}, weight: {:?}", location, weight);
 		let fee_per_second = P::get_fee_per_second(location)?;
-		log::error!("FixedConversionRateProvider::convert_weight_to_fee, 222");
+		log::error!("FixedConversionRateProvider::convert_weight_to_fee, weight.ref_time(): {:?}, WEIGHT_REF_TIME_PER_SECOND: {:?}", weight.ref_time(), WEIGHT_REF_TIME_PER_SECOND);
 		let weight_ratio = FixedU128::saturating_from_rational(weight.ref_time(), WEIGHT_REF_TIME_PER_SECOND);
+		log::error!("FixedConversionRateProvider::convert_weight_to_fee, weight_ratio: {:?}, fee_per_second: {:?}", weight_ratio, fee_per_second);
 		let amount = weight_ratio.saturating_mul_int(fee_per_second);
+		log::error!("FixedConversionRateProvider::convert_weight_to_fee, amount: ", amount);
 		Some(amount)
 	}
 }
