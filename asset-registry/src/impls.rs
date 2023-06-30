@@ -60,7 +60,7 @@ impl<P: FixedConversionRateProvider> WeightToFeeConverter for FixedRateAssetRegi
 		let weight_ratio = FixedU128::saturating_from_rational(weight.ref_time(), WEIGHT_REF_TIME_PER_SECOND);
 		log::error!("FixedConversionRateProvider::convert_weight_to_fee, weight_ratio: {:?}, fee_per_second: {:?}", weight_ratio, fee_per_second);
 		let amount = weight_ratio.saturating_mul_int(fee_per_second);
-		log::error!("FixedConversionRateProvider::convert_weight_to_fee, amount: ", amount);
+		log::error!("FixedConversionRateProvider::convert_weight_to_fee, amount: {:?}", amount);
 		Some(amount)
 	}
 }
