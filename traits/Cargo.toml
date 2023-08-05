@@ -20,7 +20,7 @@ sp-io = { git = "https://github.com/PureStake/substrate", default-features = fal
 sp-std = { git = "https://github.com/PureStake/substrate", default-features = false , branch = "moonbeam-polkadot-v0.9.40" }
 frame-support = { git = "https://github.com/PureStake/substrate", default-features = false , branch = "moonbeam-polkadot-v0.9.40" }
 
-xcm = { git = "https://github.com/PureStake/polkadot", default-features = false , branch = "moonbeam-polkadot-v0.9.40" }
+xcm = { git = "https://github.com/imstar15/polkadot", default-features = false , branch = "moonbeam-polkadot-v0.9.40" }
 
 orml-utilities = { path = "../utilities", version = "0.4.1-dev", default-features = false }
 
