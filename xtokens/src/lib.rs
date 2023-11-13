@@ -528,6 +528,7 @@ pub mod module {
 			let asset_len = assets.len();
 			for i in 0..asset_len {
 				let asset = assets.get(i).ok_or(Error::<T>::AssetIndexNonExistent)?;
+				log::error!("do_transfer_multiassets, asset: {:?}", asset);
 				ensure!(
 					matches!(asset.fun, Fungibility::Fungible(x) if !x.is_zero()),
 					Error::<T>::InvalidAsset
