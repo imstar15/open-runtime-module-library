@@ -582,6 +582,7 @@ pub mod module {
 						.map_err(|_| Error::<T>::CannotReanchor);
 				}
 
+				log::error!("execute_and_send_reserve_kind_xcm, 1111");
 				// First xcm sent to fee reserve chain and routed to dest chain.
 				// We can use `MinXcmFee` configuration to decide which target parachain use
 				// teleport. But as current there's only one case which is Parachain send back
@@ -597,6 +598,7 @@ pub mod module {
 					true,
 				)?;
 
+				log::error!("execute_and_send_reserve_kind_xcm, 2222");
 				// Second xcm send to dest chain.
 				Self::execute_and_send_reserve_kind_xcm(
 					origin_location,
@@ -609,6 +611,7 @@ pub mod module {
 					false,
 				)?;
 			} else {
+				log::error!("execute_and_send_reserve_kind_xcm, 3333");
 				Self::execute_and_send_reserve_kind_xcm(
 					origin_location,
 					assets.clone(),
