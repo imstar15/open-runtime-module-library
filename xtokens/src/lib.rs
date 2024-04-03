@@ -244,6 +244,7 @@ pub mod module {
 			dest: Box<VersionedMultiLocation>,
 			dest_weight_limit: WeightLimit,
 		) -> DispatchResult {
+			log::error!("0000");
 			let who = ensure_signed(origin)?;
 			let asset: MultiAsset = (*asset).try_into().map_err(|()| Error::<T>::BadVersion)?;
 			let dest: MultiLocation = (*dest).try_into().map_err(|()| Error::<T>::BadVersion)?;
