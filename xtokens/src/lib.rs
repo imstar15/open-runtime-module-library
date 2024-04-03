@@ -532,9 +532,11 @@ pub mod module {
 					matches!(asset.fun, Fungibility::Fungible(x) if !x.is_zero()),
 					Error::<T>::InvalidAsset
 				);
+				log::error!("fee: {:?} asset: {:?}, asset_len: {:?}", fee, asset, asset_len);
 				// `assets` includes fee, the reserve location is decided by non fee asset
 				if (fee != *asset && non_fee_reserve.is_none()) || asset_len == 1 {
 					non_fee_reserve = T::ReserveProvider::reserve(asset);
+					log::error!("non_fee_reserve: {:?}", non_fee_reserve);
 				}
 				// make sure all non fee assets share the same reserve
 				if non_fee_reserve.is_some() {
