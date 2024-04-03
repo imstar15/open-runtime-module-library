@@ -551,8 +551,8 @@ pub mod module {
 				// like `NonReserve` or `SelfReserve` with relay-chain fee is not support.
 				ensure!(non_fee_reserve == dest.chain_part(), Error::<T>::InvalidAsset);
 
-				let reserve_location = non_fee_reserve.ok_or(Error::<T>::AssetHasNoReserve)?;
 				log::error!("1111");
+				let reserve_location = non_fee_reserve.ok_or(Error::<T>::AssetHasNoReserve)?;
 				let min_xcm_fee = T::MinXcmFee::get(&reserve_location).ok_or(Error::<T>::MinXcmFeeNotDefined)?;
 
 				// min xcm fee should less than user fee
@@ -823,8 +823,8 @@ pub mod module {
 
 			let self_location = T::SelfLocation::get();
 			ensure!(dest != self_location, Error::<T>::NotCrossChainTransfer);
-			let reserve = reserve.ok_or(Error::<T>::AssetHasNoReserve)?;
 			log::error!("2222");
+			let reserve = reserve.ok_or(Error::<T>::AssetHasNoReserve)?;
 			let transfer_kind = if reserve == self_location {
 				SelfReserveAsset
 			} else if reserve == dest {
