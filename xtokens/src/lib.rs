@@ -611,7 +611,7 @@ pub mod module {
 					false,
 				)?;
 			} else {
-				log::error!("execute_and_send_reserve_kind_xcm, 3333");
+				log::error!("execute_and_send_reserve_kind_xcm, 3333, non_fee_reserve: {:?}", non_fee_reserve);
 				Self::execute_and_send_reserve_kind_xcm(
 					origin_location,
 					assets.clone(),
