@@ -29,7 +29,7 @@ resolver = "2"
 [profile.dev]
 split-debuginfo = "unpacked"
 
-[patch.'https://github.com/paritytech/polkadot-sdk']
+[patch.'https://github.com/imstar15/polkadot-sdk']
 frame-benchmarking = { git = "https://github.com/paritytech//polkadot-sdk", branch = "release-polkadot-v1.1.0" }
 frame-support = { git = "https://github.com/paritytech//polkadot-sdk", branch = "release-polkadot-v1.1.0" }
 frame-system = { git = "https://github.com/paritytech//polkadot-sdk", branch = "release-polkadot-v1.1.0" }
